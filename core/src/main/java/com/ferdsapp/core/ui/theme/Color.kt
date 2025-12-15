@@ -1,4 +1,4 @@
-package com.ferdsapp.movieapp.ui.theme
+package com.ferdsapp.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

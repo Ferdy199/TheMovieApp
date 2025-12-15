@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hiltAndroid)
     id("kotlin-parcelize")
@@ -33,6 +34,7 @@ android {
 
     buildFeatures {
         buildConfig = true
+        compose =  true
     }
 
     compileOptions {
@@ -48,8 +50,11 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    api(libs.androidx.paging.runtime)
+    api(libs.androidx.paging.compose)
     api (libs.coil.compose)
     api (libs.lottie.compose)
+    api(libs.androidx.compose.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

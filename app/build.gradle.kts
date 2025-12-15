@@ -56,6 +56,8 @@ dependencies {
 
 //    implementing core module
     implementation(project(":core"))
+    implementation(project(":home"))
+    implementation(project(":detail"))
 
 
 //    Testing libs
