@@ -65,13 +65,13 @@ dependencies {
 
 //    network libs
     api (libs.retrofit)
-    api(libs.gson)
+    api (libs.gson)
     api (libs.converter.gson)
     api (libs.logging.interceptor)
 
 //    Injection libs
     ksp (libs.hilt.android.compiler)
-    api (libs.hilt.android)
+    implementation (libs.hilt.android)
     api (libs.hilt.navigation.compose)
 
 }

@@ -1,4 +1,4 @@
-package com.ferdsapp.movieapp.screen.app
+package com.ferdsapp.movieapp.presentation.screen.app
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -24,8 +24,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ferdsapp.home.presentation.ui.HomeScreen
-import com.ferdsapp.movieapp.navigation.Screen
-import com.ferdsapp.movieapp.screen.component.MovieTopBar
+import com.ferdsapp.movieapp.presentation.navigation.Screen
+import com.ferdsapp.movieapp.presentation.screen.component.MovieTopBar
 import kotlinx.coroutines.launch
 
 @Composable

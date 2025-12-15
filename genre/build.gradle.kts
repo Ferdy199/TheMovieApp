@@ -7,10 +7,8 @@ plugins {
 }
 
 android {
-    namespace = "com.ferdsapp.home"
-    compileSdk {
-        version = release(36)
-    }
+    namespace = "com.ferdsapp.genre"
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 22
@@ -22,15 +20,13 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     buildFeatures {
         compose = true
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -41,7 +37,7 @@ android {
 }
 
 dependencies {
-//    core compose libs
+    //    core compose libs
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

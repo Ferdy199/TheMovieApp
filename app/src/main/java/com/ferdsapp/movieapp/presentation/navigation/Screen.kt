@@ -1,4 +1,4 @@
-package com.ferdsapp.movieapp.navigation
+package com.ferdsapp.movieapp.presentation.navigation
 
 sealed class Screen(val route: String){
     data object Home : Screen("home")
