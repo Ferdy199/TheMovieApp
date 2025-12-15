@@ -1,11 +1,13 @@
 package com.ferdsapp.home.network
 
 import com.ferdsapp.home.data.model.now_playing.NowPlayingMovieResponses
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface ApiService {
-    fun getNowPlayingMovie(
+    @GET("3/movie/now_playing")
+    suspend fun getNowPlayingMovie(
         @Header("Authorization")
         authToken: String,
 

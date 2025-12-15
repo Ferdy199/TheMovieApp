@@ -14,29 +14,7 @@ import javax.inject.Inject
 class RemoteDataSource @Inject constructor(
    private val apiService: ApiService
 ) {
-//    fun getNowPlayingMovie(page : Int = 1) : Flow<ApiResponse<List<ResultNowPlayingResponses>>> {
-//        return flow {
-//            try {
-//                val token = BuildConfig.API_TOKEN
-//                val responses = apiService.getNowPlayingMovie(
-//                    authToken = "Bearer $token",
-//                    page = page
-//                )
-//                val dataResponse = responses.results
-//
-//                if (dataResponse.isNotEmpty()){
-//                    emit(ApiResponse.Success(dataResponse))
-//                }else{
-//                    emit(ApiResponse.Empty)
-//                }
-//
-//            }catch (e: Exception){
-//                emit(ApiResponse.Error(errorMessage = e.message.toString()))
-//            }
-//        }
-//    }
-
-    fun getNowPlayingMovie(page: Int? = 1) : NowPlayingMovieResponses {
+    suspend fun getNowPlayingMovie(page: Int? = 1) : NowPlayingMovieResponses {
         val token = BuildConfig.API_TOKEN
         val responses = apiService.getNowPlayingMovie(
             authToken = "Bearer $token",

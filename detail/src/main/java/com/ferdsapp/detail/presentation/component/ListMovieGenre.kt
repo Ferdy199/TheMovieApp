@@ -1,4 +1,4 @@
-package com.ferdsapp.genre.component
+package com.ferdsapp.detail.presentation.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,13 +22,13 @@ import androidx.compose.ui.unit.sp
 import com.ferdsapp.core.ui.theme.MovieAppTheme
 
 @Composable
-fun ListGenreItem(
+fun ListMovieGenre(
     genre: String,
     modifier: Modifier = Modifier
 ) {
     Card(
         shape = RoundedCornerShape(8.dp),
-        modifier = modifier.size(width = 64.dp, height = 64.dp),
+        modifier = modifier.size(width = 64.dp, height = 32.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFFFF8A3C)
         ),
@@ -56,7 +56,7 @@ fun ListGenreItem(
 @Composable
 private fun ListGenreItemPreview() {
     MovieAppTheme {
-        ListGenreItem(
+        ListMovieGenre(
             "Petualang"
         )
     }

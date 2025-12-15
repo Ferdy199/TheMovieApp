@@ -17,12 +17,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.ferdsapp.genre.ui.listGenre.GenreScreen
+import com.ferdsapp.genre.ui.listMovieGenre.ListMovieGenre
 import com.ferdsapp.home.presentation.ui.HomeScreen
 import com.ferdsapp.movieapp.presentation.navigation.Screen
 import com.ferdsapp.movieapp.presentation.screen.component.MovieTopBar
@@ -57,6 +62,7 @@ fun MovieApp(
     }
 
     Scaffold(
+        containerColor = Color.White,
         topBar = {
             MovieTopBar(
                 onMenuClick = {
@@ -107,6 +113,24 @@ fun MovieApp(
                 ){
                     composable(Screen.Home.route){
                         HomeScreen()
+                    }
+                    composable(Screen.Genre.route) {
+                        GenreScreen(
+                            navigateToListMovie = { with_genres ->
+                                navController.navigate(Screen.ListMovieGenre.createRoute(with_genres))
+                            }
+                        )
+                    }
+                    composable(
+                        route = Screen.ListMovieGenre.route,
+                        arguments = listOf(
+                            navArgument("with_genres"){type = NavType.StringType}
+                        )
+                    ){
+                        val with_genres = it.arguments?.getString("with_genres") ?: "12"
+                        ListMovieGenre(
+                            with_genres = with_genres
+                        )
                     }
                 }
             }

@@ -4,4 +4,9 @@ sealed class Screen(val route: String){
     data object Home : Screen("home")
     data object Detail: Screen("detail")
     data object Genre: Screen("genre")
+    data object ListMovieGenre: Screen("genre/{with_genres}"){
+        fun createRoute(
+            with_genres: String
+        ) = "genre/$with_genres"
+    }
 }

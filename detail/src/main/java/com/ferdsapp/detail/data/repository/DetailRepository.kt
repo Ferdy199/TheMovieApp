@@ -8,7 +8,7 @@ import javax.inject.Inject
 class DetailRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : IDetailRepository {
-    override suspend fun getDetailRepository(movieId: Int, page: Int?): Flow<MovieDetailsResponse> {
+    override suspend fun getDetailRepository(movieId: Int): Flow<MovieDetailsResponse> {
         TODO("Not yet implemented")
     }
 }

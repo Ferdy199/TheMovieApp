@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun LoadingDialog(modifier: Modifier = Modifier) {
@@ -13,19 +14,24 @@ fun LoadingDialog(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center
     ){
         Text(
-            "Loading"
+            textAlign = TextAlign.Center,
+            text = "Loading"
         )
     }
 }
 
 @Composable
-fun EmptyDialog(modifier: Modifier = Modifier) {
+fun EmptyDialog(
+    message: String? = "",
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center
     ){
         Text(
-            "Empty"
+            textAlign = TextAlign.Center,
+            text = "Empty $message"
         )
     }
 }

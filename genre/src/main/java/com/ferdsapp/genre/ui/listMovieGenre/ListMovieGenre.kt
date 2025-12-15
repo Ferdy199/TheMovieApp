@@ -1,4 +1,4 @@
-package com.ferdsapp.home.presentation.ui
+package com.ferdsapp.genre.ui.listMovieGenre
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
@@ -19,53 +19,57 @@ import com.ferdsapp.core.ui.component.EmptyDialog
 import com.ferdsapp.core.ui.component.LoadingDialog
 import com.ferdsapp.core.ui.helper.UiStateHelper.asUiState
 import com.ferdsapp.core.ui.state.UiState
-import com.ferdsapp.home.data.model.now_playing.ResultNowPlayingResponses
-import com.ferdsapp.home.presentation.component.MovieListItem
+import com.ferdsapp.genre.component.MovieListItem
+import com.ferdsapp.genre.data.model.ResultMovieGenre
 
 @Composable
-fun HomeScreen(
-    homeViewModel: HomeViewModel = hiltViewModel(),
+fun ListMovieGenre(
+    viewModel: ListMovieGenreViewModel = hiltViewModel(),
+    with_genres: String,
     modifier: Modifier = Modifier
 ) {
-    val state = homeViewModel.nowPlayingMovie.collectAsLazyPagingItems()
-    val uiState = state.asUiState()
-    when(uiState){
-        is UiState.Empty -> {
-            EmptyDialog("Kosong aja")
-        }
+    val pagingFlow = androidx.compose.runtime.remember(with_genres) {
+        viewModel.getListMovieGenre(with_genres)
+    }
+    val state = pagingFlow.collectAsLazyPagingItems()
+    when(val uiState = state.asUiState()){
+        is UiState.Empty -> EmptyDialog()
         is UiState.Error -> {
-            Log.d("Error Home", "HomeScreen: ${uiState.errorMessage}")
-            EmptyDialog("Error ${uiState.errorMessage}")
+            Log.d("ListMovieGenre", "ListMovieGenre: ${uiState.errorMessage}")
+            EmptyDialog("Error")
         }
         is UiState.Loading -> {
+            Log.d("ListMovieGenre", "ListMovieGenre: ${uiState}")
             LoadingDialog()
         }
         is UiState.Success -> {
-            HomeScreenContent(nowPlayingData = state)
+            ListMovieGenreContent(state, with_genres)
         }
     }
 }
 
 @Composable
-fun HomeScreenContent(
-    nowPlayingData: LazyPagingItems<ResultNowPlayingResponses>,
-    modifier: Modifier = Modifier) {
+fun ListMovieGenreContent(
+    data: LazyPagingItems<ResultMovieGenre>,
+    genres: String,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
     ) {
         Text(
             modifier = Modifier.padding(start = 16.dp),
-            text = "Movie Now Playing",
+            text = genres,
             color = Color.Black,
             style = MaterialTheme.typography.titleLarge
         )
         Spacer(Modifier.height(16.dp))
         LazyColumn {
-            items(nowPlayingData.itemCount, key = {index -> nowPlayingData[index]?.id ?: index }){ movieResponses ->
-                val movieData = nowPlayingData[movieResponses] ?: return@items
+            items(data.itemCount, key = {index -> data[index]?.id ?: index }){ movieResponses ->
+                val movieData = data[movieResponses] ?: return@items
                 MovieListItem(
                     backdrop_path = movieData.backdrop_path,
-                    title = movieData.title
+                    title = movieData.original_title
                 )
             }
         }

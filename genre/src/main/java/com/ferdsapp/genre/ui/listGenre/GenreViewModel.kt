@@ -1,4 +1,4 @@
-package com.ferdsapp.genre.ui
+package com.ferdsapp.genre.ui.listGenre
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
