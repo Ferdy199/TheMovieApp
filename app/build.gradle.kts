@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hiltAndroid)
-    id("kotlin-parcelize")
 }
 
 android {
@@ -57,21 +56,15 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
 
-//    image async libs
-    implementation(libs.coil.compose)
+//    implementing core module
+    implementation(project(":core"))
+    implementation(project(":home"))
+    implementation(project(":detail"))
+    implementation(project(":genre"))
 
-//    network libs
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-    implementation (libs.logging.interceptor)
-
-//    Injection libs
-    ksp (libs.hilt.android.compiler)
-    implementation (libs.hilt.android)
-    implementation(libs.hilt.navigation.compose)
-    implementation(libs.coil.compose)
-    implementation(libs.lottie.compose)
-
+//    di
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
 
 
 //    Testing libs
