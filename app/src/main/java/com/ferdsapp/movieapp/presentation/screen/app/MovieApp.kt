@@ -26,6 +26,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.ferdsapp.detail.presentation.ui.DetailMovieScreen
 import com.ferdsapp.genre.ui.listGenre.GenreScreen
 import com.ferdsapp.genre.ui.listMovieGenre.ListMovieGenre
 import com.ferdsapp.home.presentation.ui.HomeScreen
@@ -112,7 +113,11 @@ fun MovieApp(
                     modifier = Modifier
                 ){
                     composable(Screen.Home.route){
-                        HomeScreen()
+                        HomeScreen(
+                            navigateToDetail = { movieId ->
+                                navController.navigate(Screen.Detail.createRoute(movieId = movieId))
+                            }
+                        )
                     }
                     composable(Screen.Genre.route) {
                         GenreScreen(
@@ -129,7 +134,21 @@ fun MovieApp(
                     ){
                         val with_genres = it.arguments?.getString("with_genres") ?: "12"
                         ListMovieGenre(
-                            with_genres = with_genres
+                            with_genres = with_genres,
+                            navigateToDetail = { movieId ->
+                                navController.navigate(Screen.Detail.createRoute(movieId = movieId))
+                            }
+                        )
+                    }
+                    composable(
+                        route = Screen.Detail.route,
+                        arguments = listOf(
+                            navArgument("movieId"){type = NavType.IntType}
+                        )
+                    ){
+                        val movieId = it.arguments?.getInt("movieId") ?: 1
+                        DetailMovieScreen(
+                            movieId = movieId
                         )
                     }
                 }

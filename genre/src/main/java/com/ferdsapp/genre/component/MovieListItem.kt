@@ -30,7 +30,7 @@ fun MovieListItem(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
             .aspectRatio(16f/9f)
             .padding(vertical = 8.dp, horizontal = 16.dp),
         shape = RoundedCornerShape(16.dp)
