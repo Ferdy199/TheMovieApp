@@ -28,26 +28,31 @@ Why Modularization?
 - Better code ownership
 - Easier feature scalability
 
-Module Structure
+### Module Structure (High Level)
+
+```text
 core
-│── network
-│── ui
-│── helper
-│
+├── network
+├── ui
+└── helper
+
 home
-│── data
-│── domain
-│── presentation
-│
+├── data
+├── domain
+└── presentation
+
 detail
-│── presentation
-│
+└── presentation
+
 genre
-│── presentation
-│
+└── presentation
+
 app
-│── navigation
-│── main ui
+├── navigation
+└── main-ui
+
+```
+
 
 🛠 Tech Stack & Libraries
 Core
