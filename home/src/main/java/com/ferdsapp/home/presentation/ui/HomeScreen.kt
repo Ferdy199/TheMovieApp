@@ -1,6 +1,7 @@
 package com.ferdsapp.home.presentation.ui
 
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -25,7 +26,8 @@ import com.ferdsapp.home.presentation.component.MovieListItem
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier
+    navigateToDetail: (Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val state = homeViewModel.nowPlayingMovie.collectAsLazyPagingItems()
     val uiState = state.asUiState()
@@ -41,7 +43,7 @@ fun HomeScreen(
             LoadingDialog()
         }
         is UiState.Success -> {
-            HomeScreenContent(nowPlayingData = state)
+            HomeScreenContent(nowPlayingData = state, navigateToDetail)
         }
     }
 }
@@ -49,6 +51,7 @@ fun HomeScreen(
 @Composable
 fun HomeScreenContent(
     nowPlayingData: LazyPagingItems<ResultNowPlayingResponses>,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
@@ -65,7 +68,10 @@ fun HomeScreenContent(
                 val movieData = nowPlayingData[movieResponses] ?: return@items
                 MovieListItem(
                     backdrop_path = movieData.backdrop_path,
-                    title = movieData.title
+                    title = movieData.title,
+                    modifier = Modifier.clickable {
+                        navigateToDetail(movieData.id)
+                    }
                 )
             }
         }

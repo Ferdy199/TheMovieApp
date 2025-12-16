@@ -15,16 +15,20 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -67,13 +71,13 @@ fun DetailMovieScreenContent(
     movieDetail: MovieDetailsResponse,
     modifier: Modifier = Modifier
 ) {
+    val scrollState = rememberScrollState()
     Column(
         modifier = modifier.fillMaxSize()
     ){
         AsyncImage(
             model = "https://image.tmdb.org/t/p/w500${movieDetail.backdrop_path}",
             contentScale = ContentScale.Crop,
-//            error = painterResource(R.drawable.noimage),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
@@ -89,7 +93,6 @@ fun DetailMovieScreenContent(
             AsyncImage(
                 model = "https://image.tmdb.org/t/p/w500${movieDetail.poster_path}",
                 contentScale = ContentScale.Crop,
-//                error = painterResource(R.drawable.noimage),
                 contentDescription = null,
                 modifier = Modifier
                     .heightIn(min = 180.dp, max = 240.dp)
@@ -100,38 +103,46 @@ fun DetailMovieScreenContent(
             Column {
                 Text(
                     text = movieDetail.original_title ?: "",
-                    fontSize = 24.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.W600,
-                    fontFamily = FontFamily.SansSerif
+                    fontFamily = FontFamily.SansSerif,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(80.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier
+                    modifier = Modifier.heightIn(max = 160.dp)
                 ) {
                     items(movieDetail.genres.orEmpty(), key = {it.id}){ genreList ->
                         ListMovieGenre(genreList.name ?: "")
                     }
                 }
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Overview",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.W600,
-                    fontFamily = FontFamily.SansSerif
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = movieDetail.overview ?: "",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.W300,
-                    fontFamily = FontFamily.SansSerif,
-                    textAlign = TextAlign.Justify,
-                )
             }
 
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Column(
+            modifier = Modifier
+                .padding(start = 16.dp, end = 8.dp, bottom = 16.dp)
+                .verticalScroll(scrollState)
+        ) {
+            Text(
+                text = "Overview",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.W600,
+                fontFamily = FontFamily.SansSerif
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = movieDetail.overview ?: "",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.W200,
+                fontFamily = FontFamily.SansSerif,
+                textAlign = TextAlign.Justify,
+            )
         }
     }
 }

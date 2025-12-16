@@ -13,7 +13,6 @@ class RemoteDataSource @Inject constructor(
 ) {
     fun getDetailMovie(
         movieId: Int,
-        page: Int?
     ) : Flow<ApiResponse<MovieDetailsResponse>> {
         return flow {
             try {
@@ -27,7 +26,7 @@ class RemoteDataSource @Inject constructor(
 
 //                get Detail Trailer
                 val detailTrailer = apiService.detailMovieTrailer(
-                    authToken = token,
+                    authToken = "Bearer $token",
                     movie_id = movieId,
                 )
 
@@ -35,7 +34,6 @@ class RemoteDataSource @Inject constructor(
                 val detailReview = apiService.getDetailMovieReview(
                     authToken = "Bearer $token",
                     movie_id = movieId,
-                    page = page ?: 1
                 )
 
                 if (!detailTrailer.results.isNullOrEmpty()){

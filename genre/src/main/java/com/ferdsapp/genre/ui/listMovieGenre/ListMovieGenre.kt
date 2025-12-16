@@ -1,6 +1,7 @@
 package com.ferdsapp.genre.ui.listMovieGenre
 
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -26,6 +27,7 @@ import com.ferdsapp.genre.data.model.ResultMovieGenre
 fun ListMovieGenre(
     viewModel: ListMovieGenreViewModel = hiltViewModel(),
     with_genres: String,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val pagingFlow = androidx.compose.runtime.remember(with_genres) {
@@ -43,7 +45,7 @@ fun ListMovieGenre(
             LoadingDialog()
         }
         is UiState.Success -> {
-            ListMovieGenreContent(state, with_genres)
+            ListMovieGenreContent(state, with_genres, navigateToDetail)
         }
     }
 }
@@ -52,6 +54,7 @@ fun ListMovieGenre(
 fun ListMovieGenreContent(
     data: LazyPagingItems<ResultMovieGenre>,
     genres: String,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -69,7 +72,10 @@ fun ListMovieGenreContent(
                 val movieData = data[movieResponses] ?: return@items
                 MovieListItem(
                     backdrop_path = movieData.backdrop_path,
-                    title = movieData.original_title
+                    title = movieData.original_title,
+                    modifier = Modifier.clickable {
+                        navigateToDetail(movieData.id)
+                    }
                 )
             }
         }
