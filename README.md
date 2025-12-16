@@ -42,9 +42,13 @@ home
 └── presentation
 
 detail
+├── data
+├── domain
 └── presentation
 
 genre
+├── data
+├── domain
 └── presentation
 
 app
