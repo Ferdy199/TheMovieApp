@@ -4,8 +4,9 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ferdsapp.home.data.model.now_playing.ResultNowPlayingResponses
 import com.ferdsapp.home.data.source.RemoteDataSource
+import javax.inject.Inject
 
-class RemotePagingDataSource (
+class RemotePagingDataSource @Inject constructor (
     private val remoteDataSource: RemoteDataSource
 ) : PagingSource<Int, ResultNowPlayingResponses>() {
     override fun getRefreshKey(state: PagingState<Int, ResultNowPlayingResponses>): Int? {

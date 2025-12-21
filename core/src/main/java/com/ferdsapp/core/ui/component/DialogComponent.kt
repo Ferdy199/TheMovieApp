@@ -6,12 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import com.ferdsapp.core.ui.theme.MovieAppTheme
 
 @Composable
 fun LoadingDialog(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.CenterStart
     ){
         Text(
             textAlign = TextAlign.Center,
@@ -20,8 +22,31 @@ fun LoadingDialog(modifier: Modifier = Modifier) {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+private fun LoadingDialogPreview() {
+    MovieAppTheme {
+        LoadingDialog()
+    }
+}
+
 @Composable
 fun EmptyDialog(
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.CenterStart
+    ){
+        Text(
+            textAlign = TextAlign.Center,
+            text = "Empty Data"
+        )
+    }
+}
+
+@Composable
+fun ErrorDialog(
     message: String? = "",
     modifier: Modifier = Modifier
 ) {

@@ -13,7 +13,7 @@ interface ApiService {
         authToken: String,
 
         @Query("language")
-        language: String = "id-ID"
+        language: String = "en-US"
     ): MovieGenreResponse
 
     @GET("3/discover/movie")
@@ -28,13 +28,13 @@ interface ApiService {
         include_video: Boolean = true,
 
         @Query("language")
-        language: String = "id-ID",
+        language: String = "en-US",
 
         @Query("page")
         page: Int = 1,
 
         @Query("region")
-        region: String = "id",
+        region: String = "us",
 
         @Query("sort_by")
         sort_by: String = "popularity.desc",

@@ -17,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.ferdsapp.core.ui.component.EmptyDialog
+import com.ferdsapp.core.ui.component.ErrorDialog
 import com.ferdsapp.core.ui.component.LoadingDialog
 import com.ferdsapp.core.ui.helper.UiStateHelper.asUiState
 import com.ferdsapp.core.ui.state.UiState
@@ -37,8 +38,9 @@ fun ListMovieGenre(
     when(val uiState = state.asUiState()){
         is UiState.Empty -> EmptyDialog()
         is UiState.Error -> {
-            Log.d("ListMovieGenre", "ListMovieGenre: ${uiState.errorMessage}")
-            EmptyDialog("Error")
+            val errorMessage = uiState.errorMessage
+            Log.d("ListMovieGenre", "ListMovieGenre: ${errorMessage}")
+            ErrorDialog("Error $errorMessage")
         }
         is UiState.Loading -> {
             Log.d("ListMovieGenre", "ListMovieGenre: ${uiState}")

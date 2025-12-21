@@ -1,5 +1,6 @@
 package com.ferdsapp.movieapp.presentation.screen.app
 
+import HomeScreen
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -29,7 +30,6 @@ import androidx.navigation.navArgument
 import com.ferdsapp.detail.presentation.ui.DetailMovieScreen
 import com.ferdsapp.genre.ui.listGenre.GenreScreen
 import com.ferdsapp.genre.ui.listMovieGenre.ListMovieGenre
-import com.ferdsapp.home.presentation.ui.HomeScreen
 import com.ferdsapp.movieapp.presentation.navigation.Screen
 import com.ferdsapp.movieapp.presentation.screen.component.MovieTopBar
 import kotlinx.coroutines.launch

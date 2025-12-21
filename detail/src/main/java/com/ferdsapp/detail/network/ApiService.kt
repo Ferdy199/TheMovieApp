@@ -18,7 +18,7 @@ interface ApiService {
         movie_id: Int,
 
         @Query("language")
-        language: String = "id-ID"
+        language: String = "en-US"
     ): MovieDetailsResponse
 
     @GET("3/movie/{movie_id}/reviews")
@@ -30,7 +30,7 @@ interface ApiService {
         movie_id: Int,
 
         @Query("language")
-        language: String = "id-ID",
+        language: String = "en-US",
 
         @Query("page")
         page: Int = 1
@@ -45,7 +45,7 @@ interface ApiService {
     movie_id: Int,
 
     @Query("language")
-    language: String = "id-ID",
+    language: String = "en-US",
 
     ): MovieDetailTrailersResponse
 }
