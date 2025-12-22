@@ -27,5 +27,5 @@ data class MovieDetailsResponse(
 
     val movieTrailer: MovieDetailTrailersResponse?,
 
-    val movieReview : MovieDetailReviewResponse?
+    var movieReview : MovieDetailReviewResponse?
 )

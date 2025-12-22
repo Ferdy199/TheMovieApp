@@ -39,9 +39,7 @@ class HomeViewModel @Inject constructor(private val repository: IHomeRepository)
 //        }
 //    }
 
-    val getNowPlayingResponse: Flow<PagingData<ResultNowPlayingResponses>> =
+    val getNowPlayingResponse =
         repository.getNowMoviePlaying()
-            .filterIsInstance<ApiResponse.Success<PagingData<ResultNowPlayingResponses>>>()
-            .map { it.data }
             .cachedIn(viewModelScope)
 }

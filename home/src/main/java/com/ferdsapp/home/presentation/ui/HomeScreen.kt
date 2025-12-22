@@ -1,3 +1,4 @@
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,12 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.ferdsapp.core.ui.component.EmptyDialog
 import com.ferdsapp.core.ui.component.ErrorDialog
 import com.ferdsapp.core.ui.component.LoadingDialog
+import com.ferdsapp.core.ui.helper.UiStateHelper.asUiState
+import com.ferdsapp.core.ui.state.UiState
 import com.ferdsapp.home.data.model.now_playing.ResultNowPlayingResponses
 import com.ferdsapp.home.presentation.component.MovieListItem
 import com.ferdsapp.home.presentation.ui.HomeViewModel
@@ -28,17 +30,21 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     val items = homeViewModel.getNowPlayingResponse.collectAsLazyPagingItems()
+    val uiState = items.asUiState()
 
-    when (val refresh = items.loadState.refresh) {
-        is LoadState.Loading -> LoadingDialog()
-        is LoadState.Error -> ErrorDialog(refresh.error.message ?: "Error Data")
-        else -> {
-            if (items.itemCount == 0) EmptyDialog()
-            else HomeScreenContent(
-                nowPlayingData = items,
-                navigateToDetail = navigateToDetail,
-                modifier = modifier
-            )
+    when(uiState){
+        is UiState.Empty -> {
+            EmptyDialog()
+        }
+        is UiState.Error -> {
+            Log.d("Error Home", "HomeScreen: ${uiState.errorMessage}")
+            ErrorDialog("Error ${uiState.errorMessage}")
+        }
+        is UiState.Loading -> {
+            LoadingDialog()
+        }
+        is UiState.Success -> {
+            HomeScreenContent(nowPlayingData = items, navigateToDetail)
         }
     }
 }
@@ -60,19 +66,16 @@ fun HomeScreenContent(
 
         LazyColumn {
             items(
-                count = nowPlayingData.itemCount,
-                key = { index -> nowPlayingData[index]?.id ?: "placeholder-$index" } // ✅ paling aman
-            ) { index ->
-                val movieData = nowPlayingData[index]
-                if (movieData != null) {
-                    MovieListItem(
-                        backdrop_path = movieData.backdrop_path,
-                        title = movieData.title,
-                        modifier = Modifier.clickable { navigateToDetail(movieData.id) }
-                    )
-                } else {
-                    Spacer(Modifier.height(120.dp)) // ✅ placeholder stabil
-                }
+                nowPlayingData.itemCount,
+                key = {index -> nowPlayingData[index]?.id ?: index }){ movieResponses ->
+                val movieData = nowPlayingData[movieResponses] ?: return@items
+                MovieListItem(
+                    backdrop_path = movieData.backdrop_path,
+                    title = movieData.title,
+                    modifier = Modifier.clickable {
+                        navigateToDetail(movieData.id)
+                    }
+                )
             }
         }
     }

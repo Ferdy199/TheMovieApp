@@ -13,7 +13,7 @@ android {
     }
 
     defaultConfig {
-        minSdk = 23
+        minSdk = 22
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -52,6 +52,13 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
+
+//    Video Player
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.ui)
+    implementation(libs.youtube.player)
+
+
 
 
 //    Testing libs

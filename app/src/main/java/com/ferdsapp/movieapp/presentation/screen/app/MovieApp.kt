@@ -91,11 +91,26 @@ fun MovieApp(
                             onClick = {
                                 scope.launch {
                                     drawerState.close()
-                                    navController.navigate(item.screen.route) {
-                                        launchSingleTop = true
-                                        restoreState = true
-                                        popUpTo(navController.graph.findStartDestination().id) {
-                                            saveState = true
+                                    when(item.screen){
+                                        Screen.Genre -> {
+                                            // reset Genre biar selalu tampil list genre
+                                            navController.navigate(Screen.Genre.route) {
+                                                launchSingleTop = true
+                                                popUpTo(Screen.Genre.route) { inclusive = false }
+                                                restoreState = false
+                                            }
+                                        }
+                                        Screen.Home -> {
+                                            navController.navigate(Screen.Home.route) {
+                                                launchSingleTop = true
+                                                popUpTo(Screen.Home.route) { inclusive = false }
+                                                restoreState = false
+                                            }
+                                        }
+                                        else -> {
+                                            navController.navigate(item.screen.route) {
+                                                launchSingleTop = true
+                                            }
                                         }
                                     }
                                 }

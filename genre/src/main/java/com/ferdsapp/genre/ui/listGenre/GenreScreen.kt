@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ferdsapp.core.ui.component.EmptyDialog
+import com.ferdsapp.core.ui.component.LoadingDialog
 import com.ferdsapp.core.ui.state.UiState
 import com.ferdsapp.genre.component.ListGenreItem
 import com.ferdsapp.genre.data.model.GenresMovie
@@ -32,6 +33,7 @@ fun GenreScreen(
             }
             is UiState.Loading -> {
                 viewModel.getMovieListGenre()
+                LoadingDialog()
             }
             is UiState.Success -> {
                 val data = uiState.data
