@@ -83,3 +83,6 @@ Networking
 Async & State
 - Kotlin Coroutines
 - StateFlow / Flow
+
+Securities
+- SSL Phinning
