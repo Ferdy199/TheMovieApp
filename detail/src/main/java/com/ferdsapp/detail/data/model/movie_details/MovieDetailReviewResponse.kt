@@ -12,6 +12,6 @@ data class MovieDetailReviewResponse(
     @SerializedName("results")
     val results: List<MovieDetailReviewResultResponse>?,
 
-    @SerializedName("totalPage")
-    val totalPage: Int?
+    @SerializedName("total_pages")
+    val total_pages: Int?
 )

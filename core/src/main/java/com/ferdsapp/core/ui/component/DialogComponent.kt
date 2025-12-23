@@ -29,7 +29,7 @@ fun EmptyDialog(
     Box(
         modifier = modifier
             .fillMaxSize(),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.Center
     ){
         Text(
             textAlign = TextAlign.Center,

@@ -28,6 +28,7 @@ import com.ferdsapp.genre.data.model.ResultMovieGenre
 fun ListMovieGenre(
     viewModel: ListMovieGenreViewModel = hiltViewModel(),
     with_genres: String,
+    genres_name: String,
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -47,7 +48,7 @@ fun ListMovieGenre(
             LoadingDialog()
         }
         is UiState.Success -> {
-            ListMovieGenreContent(state, with_genres, navigateToDetail)
+            ListMovieGenreContent(state, genres_name, navigateToDetail)
         }
     }
 }
@@ -63,11 +64,12 @@ fun ListMovieGenreContent(
         modifier = modifier
     ) {
         Text(
-            modifier = Modifier.padding(start = 16.dp),
+            modifier = Modifier.padding(start = 16.dp, top = 16.dp),
             text = genres,
             color = Color.Black,
             style = MaterialTheme.typography.titleLarge
         )
+
         Spacer(Modifier.height(16.dp))
         LazyColumn {
             items(data.itemCount, key = {index -> data[index]?.id ?: index }){ movieResponses ->

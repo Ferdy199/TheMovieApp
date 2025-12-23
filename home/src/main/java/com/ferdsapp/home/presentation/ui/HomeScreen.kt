@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -29,10 +30,12 @@ fun HomeScreen(
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val items = homeViewModel.getNowPlayingResponse.collectAsLazyPagingItems()
-    val uiState = items.asUiState()
+    LaunchedEffect(Unit) {
+        homeViewModel.getNowPlayingResponse()
+    }
 
-    when(uiState){
+    val items = homeViewModel.uiState.collectAsLazyPagingItems()
+    when(val uiState = items.asUiState()){
         is UiState.Empty -> {
             EmptyDialog()
         }

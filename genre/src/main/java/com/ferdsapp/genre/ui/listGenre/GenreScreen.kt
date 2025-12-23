@@ -21,7 +21,7 @@ import com.ferdsapp.genre.data.model.GenresMovie
 @Composable
 fun GenreScreen(
     viewModel: GenreViewModel = hiltViewModel(),
-    navigateToListMovie: (String) -> Unit,
+    navigateToListMovie: (String, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
@@ -49,7 +49,7 @@ fun GenreScreen(
 @Composable
 fun GenreScreenContent(
     listGenre: List<GenresMovie>,
-    navigateToListMovie: (String) -> Unit,
+    navigateToListMovie: (String, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
@@ -62,7 +62,7 @@ fun GenreScreenContent(
             ListGenreItem(
                 genre = genreList.name ?: "-",
                 modifier = Modifier.clickable{
-                    navigateToListMovie(genreList.id.toString())
+                    navigateToListMovie(genreList.id.toString(), genreList.name.toString())
                 }
             )
         }

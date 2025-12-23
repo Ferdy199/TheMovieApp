@@ -16,30 +16,24 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: IHomeRepository): ViewModel() {
-//    private val _uiState: MutableStateFlow<UiState<PagingData<ResultNowPlayingResponses>>> =
-//        MutableStateFlow(UiState.Loading)
-//
-//    val uiState: StateFlow<UiState<PagingData<ResultNowPlayingResponses>>>
-//        get() = _uiState
-//
-//    fun getNowPlayingResponse(){
-//        viewModelScope.launch {
-//            repository.getNowMoviePlaying().asUiState()
-//                .catch {
-//                    _uiState.value = UiState.Error(it.message.toString())
-//                }
-//                .collect { nowPlayingMovie ->
-//                    _uiState.value = nowPlayingMovie
-//                }
-//        }
-//    }
+    private val _uiState: MutableStateFlow<PagingData<ResultNowPlayingResponses>> =
+        MutableStateFlow(PagingData.empty())
 
-    val getNowPlayingResponse =
+    val uiState: StateFlow<PagingData<ResultNowPlayingResponses>>
+        get() = _uiState
+
+    fun getNowPlayingResponse() = viewModelScope.launch {
         repository.getNowMoviePlaying()
             .cachedIn(viewModelScope)
+            .collect {
+                _uiState.value = it
+            }
+    }
+
 }

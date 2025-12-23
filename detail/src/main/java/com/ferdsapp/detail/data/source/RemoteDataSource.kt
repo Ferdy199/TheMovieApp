@@ -3,6 +3,7 @@ package com.ferdsapp.detail.data.source
 import android.util.Log
 import com.ferdsapp.core.BuildConfig
 import com.ferdsapp.core.utils.ApiResponse
+import com.ferdsapp.detail.data.model.movie_details.MovieDetailReviewResponse
 import com.ferdsapp.detail.data.model.movie_details.MovieDetailsResponse
 import com.ferdsapp.detail.network.ApiService
 import kotlinx.coroutines.flow.Flow
@@ -33,15 +34,15 @@ class RemoteDataSource @Inject constructor(
                 )
 
 //                get Detail Review
-                val detailReview = apiService.getDetailMovieReview(
-                    authToken = "Bearer $token",
-                    movie_id = movieId,
-                )
+//                val detailReview = apiService.getDetailMovieReview(
+//                    authToken = "Bearer $token",
+//                    movie_id = movieId,
+//                )
 
                 val updatedResponse = detailResponse
                     .copy(
                         movieTrailer = if (!detailTrailer.results.isNullOrEmpty()) detailTrailer else null,
-                        movieReview  = if (!detailReview.results.isNullOrEmpty()) detailReview else null
+//                        movieReview  = if (!detailReview.results.isNullOrEmpty()) detailReview else null
                     )
 
                 Log.d("remoteDataSource", "emit Success")
@@ -51,5 +52,14 @@ class RemoteDataSource @Inject constructor(
                 emit(ApiResponse.Error(e.message.toString()))
             }
         }
+    }
+
+    suspend fun getDetailReview(movieId: Int): MovieDetailReviewResponse {
+        val token = BuildConfig.API_TOKEN
+        val responses = apiService.getDetailMovieReview(
+            authToken = "Bearer $token",
+            movie_id = movieId,
+        )
+        return responses
     }
 }

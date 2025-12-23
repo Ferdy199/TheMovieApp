@@ -45,4 +45,16 @@ object FormatTimeHelper {
         }
     }
 
+    fun formatDuration(minutes: Int): String {
+        if (minutes <= 0) return "0 menit"
+        val h = minutes / 60
+        val m = minutes % 60
+
+        return when {
+            h > 0 && m > 0 -> "${h}j ${m}m"
+            h > 0 -> "$h jam"
+            else -> "$m menit"
+        }
+    }
+
 }
