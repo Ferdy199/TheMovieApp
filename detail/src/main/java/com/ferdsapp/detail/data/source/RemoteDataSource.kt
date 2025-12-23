@@ -1,7 +1,9 @@
 package com.ferdsapp.detail.data.source
 
+import android.util.Log
 import com.ferdsapp.core.BuildConfig
 import com.ferdsapp.core.utils.ApiResponse
+import com.ferdsapp.detail.data.model.movie_details.MovieDetailReviewResponse
 import com.ferdsapp.detail.data.model.movie_details.MovieDetailsResponse
 import com.ferdsapp.detail.network.ApiService
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +17,7 @@ class RemoteDataSource @Inject constructor(
         movieId: Int,
     ) : Flow<ApiResponse<MovieDetailsResponse>> {
         return flow {
+            emit(ApiResponse.Loading)
             try {
                 val token = BuildConfig.API_TOKEN
 
@@ -31,28 +34,32 @@ class RemoteDataSource @Inject constructor(
                 )
 
 //                get Detail Review
-                val detailReview = apiService.getDetailMovieReview(
-                    authToken = "Bearer $token",
-                    movie_id = movieId,
-                )
+//                val detailReview = apiService.getDetailMovieReview(
+//                    authToken = "Bearer $token",
+//                    movie_id = movieId,
+//                )
 
-                if (!detailTrailer.results.isNullOrEmpty()){
-                    detailResponse.copy(
-                        movieTrailer = detailTrailer
+                val updatedResponse = detailResponse
+                    .copy(
+                        movieTrailer = if (!detailTrailer.results.isNullOrEmpty()) detailTrailer else null,
+//                        movieReview  = if (!detailReview.results.isNullOrEmpty()) detailReview else null
                     )
-                }
 
-                if (!detailReview.results.isNullOrEmpty()){
-                    detailResponse.copy(
-                        movieReview = detailReview
-                    )
-                }
-
-                emit(ApiResponse.Success(detailResponse))
+                Log.d("remoteDataSource", "emit Success")
+                emit(ApiResponse.Success(updatedResponse))
 
             }catch (e: Exception){
-
+                emit(ApiResponse.Error(e.message.toString()))
             }
         }
+    }
+
+    suspend fun getDetailReview(movieId: Int): MovieDetailReviewResponse {
+        val token = BuildConfig.API_TOKEN
+        val responses = apiService.getDetailMovieReview(
+            authToken = "Bearer $token",
+            movie_id = movieId,
+        )
+        return responses
     }
 }

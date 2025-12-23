@@ -11,10 +11,10 @@ interface ApiService {
         @Header("Authorization")
         authToken: String,
 
-        @Query("language") language: String = "id-ID",
+        @Query("language") language: String = "en-US",
 
         @Query("page") page: Int = 1,
 
-        @Query("region") region: String = "id"
+        @Query("region") region: String = "us"
     ) : NowPlayingMovieResponses
 }

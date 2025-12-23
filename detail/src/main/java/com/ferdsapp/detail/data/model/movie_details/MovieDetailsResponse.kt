@@ -25,7 +25,10 @@ data class MovieDetailsResponse(
     @SerializedName("vote_average")
     val vote_average: Float?,
 
+    @SerializedName("runtime")
+    val runtime: Int,
+
     val movieTrailer: MovieDetailTrailersResponse?,
 
-    val movieReview : MovieDetailReviewResponse?
+    var movieReview : MovieDetailReviewResponse?
 )

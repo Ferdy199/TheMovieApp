@@ -17,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.ferdsapp.core.ui.component.EmptyDialog
+import com.ferdsapp.core.ui.component.ErrorDialog
 import com.ferdsapp.core.ui.component.LoadingDialog
 import com.ferdsapp.core.ui.helper.UiStateHelper.asUiState
 import com.ferdsapp.core.ui.state.UiState
@@ -27,6 +28,7 @@ import com.ferdsapp.genre.data.model.ResultMovieGenre
 fun ListMovieGenre(
     viewModel: ListMovieGenreViewModel = hiltViewModel(),
     with_genres: String,
+    genres_name: String,
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -37,15 +39,16 @@ fun ListMovieGenre(
     when(val uiState = state.asUiState()){
         is UiState.Empty -> EmptyDialog()
         is UiState.Error -> {
-            Log.d("ListMovieGenre", "ListMovieGenre: ${uiState.errorMessage}")
-            EmptyDialog("Error")
+            val errorMessage = uiState.errorMessage
+            Log.d("ListMovieGenre", "ListMovieGenre: ${errorMessage}")
+            ErrorDialog("Error $errorMessage")
         }
         is UiState.Loading -> {
             Log.d("ListMovieGenre", "ListMovieGenre: ${uiState}")
             LoadingDialog()
         }
         is UiState.Success -> {
-            ListMovieGenreContent(state, with_genres, navigateToDetail)
+            ListMovieGenreContent(state, genres_name, navigateToDetail)
         }
     }
 }
@@ -61,11 +64,12 @@ fun ListMovieGenreContent(
         modifier = modifier
     ) {
         Text(
-            modifier = Modifier.padding(start = 16.dp),
+            modifier = Modifier.padding(start = 16.dp, top = 16.dp),
             text = genres,
             color = Color.Black,
             style = MaterialTheme.typography.titleLarge
         )
+
         Spacer(Modifier.height(16.dp))
         LazyColumn {
             items(data.itemCount, key = {index -> data[index]?.id ?: index }){ movieResponses ->

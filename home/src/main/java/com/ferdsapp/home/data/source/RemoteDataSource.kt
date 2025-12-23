@@ -15,11 +15,15 @@ class RemoteDataSource @Inject constructor(
    private val apiService: ApiService
 ) {
     suspend fun getNowPlayingMovie(page: Int? = 1) : NowPlayingMovieResponses {
-        val token = BuildConfig.API_TOKEN
-        val responses = apiService.getNowPlayingMovie(
-            authToken = "Bearer $token",
-            page = page ?: 1
-        )
-        return responses
+        return try {
+            val token = BuildConfig.API_TOKEN
+            val responses = apiService.getNowPlayingMovie(
+                authToken = "Bearer $token",
+                page = page ?: 1
+            )
+            responses
+        }catch (e: Exception){
+            throw e
+        }
     }
 }

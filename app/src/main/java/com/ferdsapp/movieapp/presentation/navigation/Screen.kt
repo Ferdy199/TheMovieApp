@@ -8,9 +8,10 @@ sealed class Screen(val route: String){
         ) = "detail/$movieId"
     }
     data object Genre: Screen("genre")
-    data object ListMovieGenre: Screen("genre/{with_genres}"){
+    data object ListMovieGenre: Screen("genre/{with_genres}/{genres_name}"){
         fun createRoute(
-            with_genres: String
-        ) = "genre/$with_genres"
+            with_genres: String,
+            genres_name: String
+        ) = "genre/$with_genres/$genres_name"
     }
 }

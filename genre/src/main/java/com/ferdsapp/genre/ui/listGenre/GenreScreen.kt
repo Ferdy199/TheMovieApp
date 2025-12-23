@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ferdsapp.core.ui.component.EmptyDialog
+import com.ferdsapp.core.ui.component.LoadingDialog
 import com.ferdsapp.core.ui.state.UiState
 import com.ferdsapp.genre.component.ListGenreItem
 import com.ferdsapp.genre.data.model.GenresMovie
@@ -20,7 +21,7 @@ import com.ferdsapp.genre.data.model.GenresMovie
 @Composable
 fun GenreScreen(
     viewModel: GenreViewModel = hiltViewModel(),
-    navigateToListMovie: (String) -> Unit,
+    navigateToListMovie: (String, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
@@ -32,6 +33,7 @@ fun GenreScreen(
             }
             is UiState.Loading -> {
                 viewModel.getMovieListGenre()
+                LoadingDialog()
             }
             is UiState.Success -> {
                 val data = uiState.data
@@ -47,7 +49,7 @@ fun GenreScreen(
 @Composable
 fun GenreScreenContent(
     listGenre: List<GenresMovie>,
-    navigateToListMovie: (String) -> Unit,
+    navigateToListMovie: (String, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
@@ -60,7 +62,7 @@ fun GenreScreenContent(
             ListGenreItem(
                 genre = genreList.name ?: "-",
                 modifier = Modifier.clickable{
-                    navigateToListMovie(genreList.id.toString())
+                    navigateToListMovie(genreList.id.toString(), genreList.name.toString())
                 }
             )
         }

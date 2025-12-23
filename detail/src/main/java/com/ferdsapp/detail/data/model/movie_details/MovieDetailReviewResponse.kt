@@ -12,15 +12,6 @@ data class MovieDetailReviewResponse(
     @SerializedName("results")
     val results: List<MovieDetailReviewResultResponse>?,
 
-    @SerializedName("content")
-    val content: String?,
-
-    @SerializedName("created_at")
-    val created_at: String?,
-
-    @SerializedName("updated_at")
-    val updated_at: String?,
-
-    @SerializedName("totalPage")
-    val totalPage: Int?
+    @SerializedName("total_pages")
+    val total_pages: Int?
 )

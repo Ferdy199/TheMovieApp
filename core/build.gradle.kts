@@ -55,6 +55,7 @@ dependencies {
     api (libs.coil.compose)
     api (libs.lottie.compose)
     api(libs.androidx.compose.material3)
+//    implementation(libs.androidx.ui.tooling.preview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,6 +69,7 @@ dependencies {
     api (libs.gson)
     api (libs.converter.gson)
     api (libs.logging.interceptor)
+//    debugImplementation(libs.androidx.ui.tooling)
 
 //    Injection libs
     ksp (libs.hilt.android.compiler)

@@ -53,6 +53,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
 
+//    Video Player
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.ui)
+    implementation(libs.youtube.player)
+
+
+
 
 //    Testing libs
     testImplementation(libs.junit)
