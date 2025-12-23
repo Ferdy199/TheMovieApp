@@ -33,16 +33,9 @@ class RemoteDataSource @Inject constructor(
                     movie_id = movieId,
                 )
 
-//                get Detail Review
-//                val detailReview = apiService.getDetailMovieReview(
-//                    authToken = "Bearer $token",
-//                    movie_id = movieId,
-//                )
-
                 val updatedResponse = detailResponse
                     .copy(
                         movieTrailer = if (!detailTrailer.results.isNullOrEmpty()) detailTrailer else null,
-//                        movieReview  = if (!detailReview.results.isNullOrEmpty()) detailReview else null
                     )
 
                 Log.d("remoteDataSource", "emit Success")
@@ -55,11 +48,15 @@ class RemoteDataSource @Inject constructor(
     }
 
     suspend fun getDetailReview(movieId: Int): MovieDetailReviewResponse {
-        val token = BuildConfig.API_TOKEN
-        val responses = apiService.getDetailMovieReview(
-            authToken = "Bearer $token",
-            movie_id = movieId,
-        )
-        return responses
+       return try {
+           val token = BuildConfig.API_TOKEN
+           val responses = apiService.getDetailMovieReview(
+               authToken = "Bearer $token",
+               movie_id = movieId,
+           )
+            responses
+       }catch (e: Exception){
+           throw e
+       }
     }
 }
