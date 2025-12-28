@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ferdsapp.search"
+    namespace = "com.ferdsapp.profile"
     compileSdk = 36
 
     defaultConfig {
@@ -20,15 +20,18 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
+    }
+    buildFeatures {
+        compose = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-    buildFeatures {
-        compose = true
     }
     kotlinOptions {
         jvmTarget = "11"

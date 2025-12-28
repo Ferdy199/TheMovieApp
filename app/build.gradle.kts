@@ -63,6 +63,9 @@ dependencies {
     implementation(project(":home"))
     implementation(project(":detail"))
     implementation(project(":genre"))
+    implementation(project(":search"))
+    implementation(project(":profile"))
+
 
 //    di
     ksp(libs.hilt.android.compiler)

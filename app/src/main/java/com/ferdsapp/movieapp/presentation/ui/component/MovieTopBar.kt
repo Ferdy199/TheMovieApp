@@ -1,4 +1,4 @@
-package com.ferdsapp.movieapp.presentation.screen.component
+package com.ferdsapp.movieapp.presentation.ui.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
