@@ -17,7 +17,7 @@ class HomeRepository @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = remoteDataSource.getNowPlayingMovie().results.size,
-                prefetchDistance = 4,
+                prefetchDistance = remoteDataSource.getNowPlayingMovie().results.size - 3,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { factory.create() }
