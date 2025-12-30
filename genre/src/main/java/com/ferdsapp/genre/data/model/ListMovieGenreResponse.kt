@@ -1,7 +1,6 @@
 package com.ferdsapp.genre.data.model
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serial
 
 data class ListMovieGenreResponse(
     @SerializedName("page")

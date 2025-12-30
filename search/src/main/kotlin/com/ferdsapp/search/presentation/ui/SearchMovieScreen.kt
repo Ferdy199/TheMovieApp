@@ -15,7 +15,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -25,7 +24,6 @@ import com.ferdsapp.core.ui.component.LoadingDialog
 import com.ferdsapp.core.ui.component.MovieListItem
 import com.ferdsapp.core.ui.helper.UiStateHelper.asUiState
 import com.ferdsapp.core.ui.state.UiState
-import com.ferdsapp.core.ui.theme.MovieAppTheme
 import com.ferdsapp.search.presentation.component.MovieSearchBar
 
 @Composable

@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.ferdsapp.core.ui.helper.UiStateHelper.asUiState
-import com.ferdsapp.core.ui.helper.UiStateHelper.asUiStateList
 import com.ferdsapp.core.ui.state.UiState
 import com.ferdsapp.detail.data.model.movie_details.MovieDetailReviewResultResponse
 import com.ferdsapp.detail.data.model.movie_details.MovieDetailsResponse

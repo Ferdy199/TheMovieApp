@@ -2,7 +2,6 @@ package com.ferdsapp.genre.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.ferdsapp.genre.data.model.ListMovieGenreResponse
 import com.ferdsapp.genre.data.model.ResultMovieGenre
 import com.ferdsapp.genre.data.source.RemoteDataSource
 
