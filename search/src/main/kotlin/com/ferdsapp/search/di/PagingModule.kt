@@ -1,6 +1,6 @@
-package com.ferdsapp.detail.di
+package com.ferdsapp.search.di
 
-import com.ferdsapp.detail.data.source.RemoteDataSource
+import com.ferdsapp.search.data.source.RemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,10 +10,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object PagingModule {
-
     @Provides
     @Singleton
     fun providesRemotePagingFactory(
         remoteDataSource: RemoteDataSource
-    ): RemotePagingFactory = RemotePagingFactory(remoteDataSource)
+    ): RemotePagingFactory = RemotePagingFactory(remoteDataSource = remoteDataSource)
 }

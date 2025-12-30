@@ -69,9 +69,13 @@ fun HomeScreenContent(
 
         LazyColumn {
             items(
-                nowPlayingData.itemCount,
-                key = {index -> nowPlayingData[index]?.id ?: index }){ movieResponses ->
-                val movieData = nowPlayingData[movieResponses] ?: return@items
+                count = nowPlayingData.itemCount,
+                key = { index ->
+                    val item = nowPlayingData[index]
+                    "${item?.id ?: "null"}-$index"
+                }
+            ) { index ->
+                val movieData = nowPlayingData[index] ?: return@items
                 MovieListItem(
                     backdrop_path = movieData.backdrop_path,
                     title = movieData.title,

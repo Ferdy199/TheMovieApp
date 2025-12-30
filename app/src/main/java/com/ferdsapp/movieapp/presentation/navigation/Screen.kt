@@ -8,6 +8,10 @@ sealed class Screen(val route: String){
         ) = "detail/$movieId"
     }
     data object Genre: Screen("genre")
+
+    data object Search: Screen("search")
+
+    data object Profile: Screen("profile")
     data object ListMovieGenre: Screen("genre/{with_genres}/{genres_name}"){
         fun createRoute(
             with_genres: String,

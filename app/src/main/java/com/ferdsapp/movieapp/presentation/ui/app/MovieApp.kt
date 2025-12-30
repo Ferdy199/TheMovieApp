@@ -1,4 +1,4 @@
-package com.ferdsapp.movieapp.presentation.screen.app
+package com.ferdsapp.movieapp.presentation.ui.app
 
 import HomeScreen
 import androidx.compose.foundation.layout.padding
@@ -8,11 +8,9 @@ import androidx.compose.material.icons.filled.LocalOffer
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
-import androidx.compose.material3.NavigationDrawerItemColors
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,7 +32,10 @@ import com.ferdsapp.detail.presentation.ui.DetailMovieScreen
 import com.ferdsapp.genre.ui.listGenre.GenreScreen
 import com.ferdsapp.genre.ui.listMovieGenre.ListMovieGenre
 import com.ferdsapp.movieapp.presentation.navigation.Screen
-import com.ferdsapp.movieapp.presentation.screen.component.MovieTopBar
+import com.ferdsapp.movieapp.presentation.ui.component.MovieBottomBar
+import com.ferdsapp.movieapp.presentation.ui.component.MovieTopBar
+import com.ferdsapp.profile.Presentation.ui.ProfileScreen
+import com.ferdsapp.search.presentation.ui.SearchMovieScreen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -71,7 +72,7 @@ fun MovieApp(
             MovieTopBar(
                 onMenuClick = {
                     scope.launch {
-                        if (drawerState.isClosed){
+                        if (drawerState.isClosed) {
                             drawerState.open()
                         } else {
                             drawerState.close()
@@ -79,6 +80,9 @@ fun MovieApp(
                     }
                 }
             )
+        },
+        bottomBar = {
+            MovieBottomBar(navController)
         }
     ) { innerPadding ->
         ModalNavigationDrawer(
@@ -181,6 +185,20 @@ fun MovieApp(
                         val movieId = it.arguments?.getInt("movieId") ?: 1
                         DetailMovieScreen(
                             movieId = movieId
+                        )
+                    }
+                    composable(
+                        route = Screen.Profile.route
+                    ){
+                        ProfileScreen()
+                    }
+                    composable(
+                        route = Screen.Search.route
+                    ) {
+                        SearchMovieScreen(
+                            navigateToDetail = { movieId ->
+                                navController.navigate(Screen.Detail.createRoute(movieId = movieId))
+                            }
                         )
                     }
                 }
