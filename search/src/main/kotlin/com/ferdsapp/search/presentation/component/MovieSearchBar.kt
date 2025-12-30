@@ -21,6 +21,7 @@ import com.ferdsapp.core.ui.theme.MovieAppTheme
 fun MovieSearchBar(
     query: String,
     onQueryChange: (String) -> Unit,
+    onSearch: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     SearchBar(
@@ -28,7 +29,7 @@ fun MovieSearchBar(
             SearchBarDefaults.InputField(
                 query = query,
                 onQueryChange = onQueryChange,
-                onSearch = {},
+                onSearch = onSearch,
                 expanded = false,
                 onExpandedChange = {},
                 leadingIcon = {
@@ -48,8 +49,7 @@ fun MovieSearchBar(
         expanded = false,
         onExpandedChange = {},
         shape = MaterialTheme.shapes.large,
-        modifier = Modifier.fillMaxWidth()
-            .padding(16.dp)
+        modifier = modifier
     ) { }
 }
 
@@ -59,7 +59,8 @@ private fun MovieSearchBarPreview() {
     MovieAppTheme {
         MovieSearchBar(
             query = "",
-            onQueryChange = {}
+            onQueryChange = {},
+            onSearch = {}
         )
     }
 }

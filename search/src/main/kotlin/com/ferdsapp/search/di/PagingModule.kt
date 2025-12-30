@@ -1,6 +1,5 @@
 package com.ferdsapp.search.di
 
-import com.ferdsapp.search.data.paging.RemotePagingDataSource
 import com.ferdsapp.search.data.source.RemoteDataSource
 import dagger.Module
 import dagger.Provides

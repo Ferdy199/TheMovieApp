@@ -1,4 +1,4 @@
-package com.ferdsapp.home.presentation.component
+package com.ferdsapp.core.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.ferdsapp.core.ui.theme.MovieAppTheme
@@ -69,16 +68,5 @@ fun MovieListItem(
             )
         }
 
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun MovieListItemPreview() {
-    MovieAppTheme {
-        MovieListItem(
-            backdrop_path = "/fiRDzpcJe7qz3yIR43hdXIE3NHv.jpg",
-            title = "Wake Up Dead Man: A Knives Out Mystery"
-        )
     }
 }

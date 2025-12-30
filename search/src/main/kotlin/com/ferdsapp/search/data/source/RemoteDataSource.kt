@@ -8,12 +8,13 @@ import javax.inject.Inject
 class RemoteDataSource @Inject constructor(
     private val apiService: ApiService
 ) {
-    suspend fun getSearchMovie(query: String): SearchMovieResponses {
+    suspend fun getSearchMovie(query: String, page: Int): SearchMovieResponses {
         return try {
             val token = BuildConfig.API_TOKEN
             val responses = apiService.getMovieSearch(
                 authToken = "Bearer $token",
-                query = query
+                query = query,
+                page = page
             )
             responses
         }catch (e: Exception){

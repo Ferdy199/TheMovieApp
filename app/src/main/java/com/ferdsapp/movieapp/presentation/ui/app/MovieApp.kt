@@ -195,7 +195,11 @@ fun MovieApp(
                     composable(
                         route = Screen.Search.route
                     ) {
-                        SearchMovieScreen()
+                        SearchMovieScreen(
+                            navigateToDetail = { movieId ->
+                                navController.navigate(Screen.Detail.createRoute(movieId = movieId))
+                            }
+                        )
                     }
                 }
             }
